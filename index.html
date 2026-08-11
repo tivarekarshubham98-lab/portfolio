@@ -1,215 +1,302 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Shubham Tivarekar — UI Developer Portfolio">
-  <title>Shubham Tivarekar — UI Developer</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shubham Tivarekar Portfolio</title>
+    <meta name="description" content="UI designer and UI developer portfolio for Aaron Reed.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="noise"></div>
-  <div class="cursor"></div>
-  <div class="cursor-dot"></div>
+    <header class="site-header" id="top">
+        <nav class="nav-shell" aria-label="Primary navigation">
+            <a class="brand" href="#top" aria-label="Aaron Reed home">
+                <span class="brand-mark" aria-hidden="true">AR</span>
+                <span>
+                    <strong>PortFolio</strong>
+                    <small>UI/UX &amp; Web Designer</small>
+                </span>
+            </a>
 
-  <div class="loader">
-    <div class="loader-inner">
-      <span class="loader-label">SHUBHAM.T</span>
-      <div class="loader-line"><span></span></div>
-      <span class="loader-percent">00%</span>
-    </div>
-  </div>
+            <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
 
-  <header class="site-header">
-    <a href="#home" class="logo magnetic" data-cursor="link">ST<span>.</span></a>
-    <nav class="desktop-nav">
-      <a href="#about">About</a>
-      <a href="#work">Work</a>
-      <a href="#skills">Skills</a>
-      <a href="#contact">Contact</a>
-    </nav>
-    <a href="#contact" class="header-cta magnetic" data-cursor="link">Let's talk <span>↗</span></a>
-    <button class="menu-toggle" aria-label="Open menu"><span></span><span></span></button>
-  </header>
-
-  <div class="mobile-menu">
-    <a href="#about">About</a>
-    <a href="#work">Work</a>
-    <a href="#skills">Skills</a>
-    <a href="#contact">Contact</a>
-  </div>
-
-  <main id="home">
-    <section class="hero section">
-      <div class="hero-orb orb-one"></div>
-      <div class="hero-orb orb-two"></div>
-      <div class="grid-lines"></div>
-
-      <div class="hero-content">
-        <div class="eyebrow reveal"><span class="status-dot"></span> Available for selected opportunities</div>
-        <h1 class="hero-title">
-          <span class="line reveal">Designing</span>
-          <span class="line reveal delay-1"><em>digital</em> experiences.</span>
-        </h1>
-        <div class="hero-bottom reveal delay-2">
-          <p class="hero-copy">I'm <strong>Shubham Tivarekar</strong>, a UI Developer crafting clean, high-performance interfaces where thoughtful design meets purposeful code.</p>
-          <a href="#work" class="circle-arrow magnetic" data-cursor="view" aria-label="View work">↘</a>
-        </div>
-      </div>
-
-      <div class="hero-meta">
-        <span>UI DEVELOPER</span>
-        <span>HTML · CSS · JS · PHP</span>
-        <span>INDIA / IST</span>
-      </div>
-
-      <div class="scroll-indicator"><span>SCROLL TO EXPLORE</span><i></i></div>
-    </section>
-
-    <section id="about" class="about section">
-      <div class="section-head reveal">
-        <span class="section-number">01</span>
-        <span class="section-label">About me</span>
-      </div>
-      <div class="about-grid">
-        <div class="about-title reveal">
-          <h2>Interfaces that<br><span>feel effortless.</span></h2>
-        </div>
-        <div class="about-copy reveal delay-1">
-          <p class="large">I turn ideas into polished, responsive products with a strong eye for visual detail and interaction.</p>
-          <p>My work sits between UI design and front-end development. I enjoy building dashboards, product experiences, landing pages and systems that are not only beautiful, but practical and easy to use.</p>
-          <div class="about-facts">
-            <div><span>Experience</span><strong>3+ Years</strong></div>
-            <div><span>Focus</span><strong>UI / Front-end</strong></div>
-            <div><span>Projects</span><strong>06+ Delivered</strong></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="work" class="work section">
-      <div class="section-head reveal">
-        <span class="section-number">02</span>
-        <span class="section-label">Selected work</span>
-      </div>
-
-      <div class="project-list">
-        <article class="project-card reveal" data-project="01">
-          <div class="project-visual visual-blue">
-            <div class="visual-ui">
-              <div class="mini-top"></div>
-              <div class="mini-grid"><i></i><i></i><i></i><i></i></div>
-              <div class="mini-chart"><b></b><b></b><b></b><b></b><b></b><b></b></div>
+            <div class="nav-links" data-nav>
+                <a class="active" href="#top">Home</a>
+                <a href="#about">About</a>
+                <a href="#services">Services</a>
+                <a href="#projects">Projects</a>
+                <a href="#process">Process</a>
+                <a href="#blog">Blog</a>
+                <a href="#contact">Contact</a>
             </div>
-            <span class="visual-tag">SERVICE MANAGEMENT</span>
-          </div>
-          <div class="project-info">
-            <div class="project-title-row"><h3>ePrompto</h3><span>01</span></div>
-            <p>AI-enabled service management platform with enterprise dashboards and intuitive workflows.</p>
-            <div class="tags"><span>UI Design</span><span>HTML/CSS</span><span>JavaScript</span></div>
-          </div>
-        </article>
 
-        <article class="project-card reverse reveal" data-project="02">
-          <div class="project-visual visual-purple">
-            <div class="visual-ui analytics">
-              <div class="analytics-header"><i></i><i></i><i></i></div>
-              <div class="analytics-bars"><b></b><b></b><b></b><b></b><b></b></div>
-              <div class="analytics-ring"></div>
+            <a class="nav-cta" href="#contact">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 2 11 13"></path><path d="m22 2-7 20-4-9-9-4 20-7Z"></path></svg>
+                Let's Talk
+            </a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero" id="about">
+            <div class="hero-copy reveal">
+                <p class="eyebrow">Hello, I'm</p>
+                <h1>Shubham <span>Tivarekar</span></h1>
+                <h2>UI/UX &amp; Web Designer</h2>
+                <p class="intro">I design and build digital experiences that are beautiful, functional and user-focused.</p>
+
+                <div class="hero-actions">
+                    <a class="btn primary" href="#projects">View My Work <span aria-hidden="true">&rarr;</span></a>
+                    <a class="btn secondary" href="#" download>Download Resume
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"></path><path d="m7 10 5 5 5-5"></path><path d="M5 21h14"></path></svg>
+                    </a>
+                </div>
+
+                <div class="stats" aria-label="Portfolio statistics">
+                    <article>
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V5h16v14H4Z"></path><path d="m8 13 2.4-2.5 2.2 2.1L16.8 8"></path></svg>
+                        <strong>5+</strong>
+                        <span>Years Experience</span>
+                    </article>
+                    <article>
+                        <strong>10+</strong>
+                        <span>Projects Completed</span>
+                    </article>
+                </div>
             </div>
-            <span class="visual-tag">IMS / ADMIN</span>
-          </div>
-          <div class="project-info">
-            <div class="project-title-row"><h3>Integrated Management System</h3><span>02</span></div>
-            <p>Structured documentation, department management, user rights and governance workflows.</p>
-            <div class="tags"><span>UX</span><span>Bootstrap</span><span>DataTables</span></div>
-          </div>
-        </article>
 
-        <article class="project-card reveal" data-project="03">
-          <div class="project-visual visual-green">
-            <div class="visual-ui portfolio-ui">
-              <div class="portfolio-photo"></div>
-              <div class="portfolio-lines"><i></i><i></i><i></i></div>
-              <div class="portfolio-button"></div>
+            <div class="hero-visual reveal" aria-label="Aaron Reed portrait">
+                <div class="orbit orbit-one"></div>
+                <div class="orbit orbit-two"></div>
+                <div class="scan-lines"></div>
+                <div class="portrait">
+                    <div class="portrait-crop" role="img" aria-label="Portrait of a web designer"></div>
+                </div>
             </div>
-            <span class="visual-tag">PORTFOLIO</span>
-          </div>
-          <div class="project-info">
-            <div class="project-title-row"><h3>Personal Portfolio</h3><span>03</span></div>
-            <p>A cinematic, motion-led portfolio experience built to showcase creative front-end work.</p>
-            <div class="tags"><span>Creative Dev</span><span>CSS Motion</span><span>JavaScript</span></div>
-          </div>
-        </article>
-      </div>
-    </section>
+        </section>
 
-    <section id="skills" class="skills section">
-      <div class="section-head reveal">
-        <span class="section-number">03</span>
-        <span class="section-label">Capabilities</span>
-      </div>
-      <div class="skills-layout">
-        <h2 class="reveal">Built with<br><span>curiosity.</span></h2>
-        <div class="skill-list">
-          <div class="skill reveal"><span>01</span><b>UI / UX Development</b><i>01</i></div>
-          <div class="skill reveal"><span>02</span><b>HTML / CSS / JavaScript</b><i>02</i></div>
-          <div class="skill reveal"><span>03</span><b>Responsive Web Design</b><i>03</i></div>
-          <div class="skill reveal"><span>04</span><b>Bootstrap / DataTables</b><i>04</i></div>
-          <div class="skill reveal"><span>05</span><b>PHP / Laravel</b><i>05</i></div>
-          <div class="skill reveal"><span>06</span><b>Git / GitHub</b><i>06</i></div>
+        <section class="projects section-shell" id="projects">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">Featured Projects</p>
+                    <h2>Selected Work</h2>
+                </div>
+                <a class="text-link" href="#projects">View All Projects <span aria-hidden="true">&rarr;</span></a>
+            </div>
+
+            <div class="project-grid">
+                <article class="project-card reveal">
+                    <div class="project-thumb dashboard-thumb">
+                        <span></span><span></span><span></span>
+                    </div>
+                    <h3>FinTrack Dashboard</h3>
+                    <p>Dashboard Design</p>
+                    <a href="#">View Case Study <span aria-hidden="true">&rarr;</span></a>
+                </article>
+                <article class="project-card reveal">
+                    <div class="project-thumb interiors-thumb">
+                        <span></span><span></span><span></span>
+                    </div>
+                    <h3>Luxora Interiors</h3>
+                    <p>Website Design</p>
+                    <a href="#">View Case Study <span aria-hidden="true">&rarr;</span></a>
+                </article>
+                <article class="project-card reveal">
+                    <div class="project-thumb app-thumb">
+                        <span></span><span></span>
+                    </div>
+                    <h3>MoveFit App</h3>
+                    <p>Mobile App Design</p>
+                    <a href="#">View Case Study <span aria-hidden="true">&rarr;</span></a>
+                </article>
+                <article class="project-card reveal">
+                    <div class="project-thumb ecommerce-thumb">
+                        <span></span><span></span><span></span>
+                    </div>
+                    <h3>Nova E-Commerce</h3>
+                    <p>Website Design</p>
+                    <a href="#">View Case Study <span aria-hidden="true">&rarr;</span></a>
+                </article>
+            </div>
+        </section>
+
+        <section class="services section-shell" id="services">
+            <p class="eyebrow">What I Do</p>
+            <h2>Services I Provide</h2>
+            <div class="service-row">
+                <article class="service-item reveal">
+                    <span class="line-icon"><svg viewBox="0 0 24 24"><path d="M3 5h18v12H3z"></path><path d="M8 21h8"></path><path d="M12 17v4"></path></svg></span>
+                    <div><h3>UI/UX Design</h3><p>Creating intuitive and engaging user experiences.</p></div>
+                </article>
+                <article class="service-item reveal">
+                    <span class="line-icon"><svg viewBox="0 0 24 24"><path d="m10 8-4 4 4 4"></path><path d="m14 8 4 4-4 4"></path><path d="m13 5-2 14"></path></svg></span>
+                    <div><h3>Web Design</h3><p>Designing modern, responsive and high-converting websites.</p></div>
+                </article>
+                <article class="service-item reveal">
+                    <span class="line-icon"><svg viewBox="0 0 24 24"><path d="M8 2h8a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Z"></path><path d="M11 18h2"></path></svg></span>
+                    <div><h3>Mobile App Design</h3><p>Designing sleek and functional mobile applications.</p></div>
+                </article>
+                <article class="service-item reveal">
+                    <span class="line-icon"><svg viewBox="0 0 24 24"><path d="m12 20 8-8-4-4-8 8-2 6 6-2Z"></path><path d="m14 6 4 4"></path></svg></span>
+                    <div><h3>Prototyping</h3><p>Interactive prototypes to validate ideas and flow.</p></div>
+                </article>
+                <article class="service-item reveal">
+                    <span class="line-icon"><svg viewBox="0 0 24 24"><path d="m5 16 3 3L19 8"></path><path d="M12 3a9 9 0 1 0 9 9"></path></svg></span>
+                    <div><h3>Design Systems</h3><p>Building consistent design systems and style guides.</p></div>
+                </article>
+            </div>
+        </section>
+
+        <section class="tools section-shell">
+            <p class="eyebrow">Tools &amp; Software</p>
+            <h2>Technologies I Use</h2>
+            <div class="tool-row">
+                <article><span class="figma">F</span><p>Figma</p></article>
+                <article><span class="xd">Xd</span><p>Adobe XD</p></article>
+                <!-- <article><span class="sketch">Sk</span><p>Sketch</p></article> -->
+                <article><span class="ps">Ps</span><p>Photoshop</p></article>
+                <!-- <article><span class="ai">Ai</span><p>Illustrator</p></article> -->
+                <!-- <article><span class="webflow">W</span><p>Webflow</p></article> -->
+                <article><span class="html5">5</span><p>HTML5</p></article>
+                <article><span class="css3">3</span><p>CSS3</p></article>
+                <article><span class="js">JS</span><p>JavaScript</p></article>
+                <article><span class="js">BT</span><p>Bootstrap</p></article>
+            </div>
+        </section>
+
+        <section class="brands section-shell">
+            <p class="eyebrow">Trusted By Brands</p>
+            <h2>Clients I've Worked With</h2>
+            <div class="brand-row" aria-label="Client logos">
+                <span>kanba</span>
+                <span>HEXLABS</span>
+                <span>lyft</span>
+                <span>smartbox</span>
+                <span>aven.</span>
+                <span>UTOSIA</span>
+                <span>PULSE</span>
+            </div>
+        </section>
+
+   
+
+        <section class="process section-shell" id="process">
+            <p class="eyebrow">My Process</p>
+            <h2>How I Work</h2>
+            <div class="process-row">
+                <article class="process-step reveal">
+                    <span class="process-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg></span>
+                    <div><strong>01</strong><h3>Discover</h3><p>Understanding your goals and user needs.</p></div>
+                </article>
+                <span class="arrow" aria-hidden="true">&rarr;</span>
+                <article class="process-step reveal">
+                    <span class="process-icon"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"></path><path d="M8 9h8"></path><path d="M8 13h5"></path></svg></span>
+                    <div><strong>02</strong><h3>Design</h3><p>Creating wireframes and visual concepts.</p></div>
+                </article>
+                <span class="arrow" aria-hidden="true">&rarr;</span>
+                <article class="process-step reveal">
+                    <span class="process-icon"><svg viewBox="0 0 24 24"><path d="m10 8-4 4 4 4"></path><path d="m14 8 4 4-4 4"></path></svg></span>
+                    <div><strong>03</strong><h3>Develop</h3><p>Bringing the design to life with clean code.</p></div>
+                </article>
+                <span class="arrow" aria-hidden="true">&rarr;</span>
+                <article class="process-step reveal">
+                    <span class="process-icon"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"></path></svg></span>
+                    <div><strong>04</strong><h3>Deliver</h3><p>Testing, optimizing and delivering the final product.</p></div>
+                </article>
+            </div>
+        </section>
+
+        <section class="contact section-shell" id="contact">
+            <div class="contact-info">
+                <p class="eyebrow">Get In Touch</p>
+                <h2>Let's Start a Project</h2>
+                <ul>
+                    <li><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"></path><path d="m4 7 8 6 8-6"></path></svg> hello@aaronreed.design</li>
+                    <li><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07A19.5 19.5 0 0 1 3.15 7.81 2 2 0 0 1 5.14 5h3a2 2 0 0 1 2 1.72c.12.9.33 1.77.62 2.61a2 2 0 0 1-.45 2.11L9.1 12.65a16 16 0 0 0 6.25 6.25l1.21-1.21a2 2 0 0 1 2.11-.45c.84.29 1.71.5 2.61.62A2 2 0 0 1 22 16.92Z"></path></svg> +1 (555) 123-4567</li>
+                    <li><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg> New York, USA</li>
+                    <li><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg> Available for new projects</li>
+                </ul>
+            </div>
+
+            <form class="contact-form" aria-label="Contact form">
+                <div class="field-grid">
+                    <input type="text" name="name" placeholder="Your Name" aria-label="Your Name">
+                    <input type="email" name="email" placeholder="Your Email" aria-label="Your Email">
+                    <select name="project" aria-label="Project Type">
+                        <option>Project Type</option>
+                        <option>Website Design</option>
+                        <option>Mobile App</option>
+                        <option>Design System</option>
+                    </select>
+                    <select name="budget" aria-label="Budget Range">
+                        <option>Budget Range</option>
+                        <option>$2k - $5k</option>
+                        <option>$5k - $10k</option>
+                        <option>$10k+</option>
+                    </select>
+                </div>
+                <textarea name="message" placeholder="Your Message" aria-label="Your Message"></textarea>
+                <button class="btn primary" type="submit">Send Message
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 2 11 13"></path><path d="m22 2-7 20-4-9-9-4 20-7Z"></path></svg>
+                </button>
+            </form>
+        </section>
+    </main>
+
+    <footer class="site-footer" id="blog">
+        <div class="footer-shell">
+            <div class="footer-brand">
+                <a class="brand footer-logo" href="#top">
+                    <span class="brand-mark" aria-hidden="true">AR</span>
+                    <span><strong>Aaron Reed</strong><small>UI/UX &amp; Web Designer</small></span>
+                </a>
+                <p>Designing digital experiences that make an impact.</p>
+                <div class="socials" aria-label="Social links">
+                    <a href="#" aria-label="LinkedIn">in</a>
+                    <a href="#" aria-label="Dribbble">Dr</a>
+                    <a href="#" aria-label="Behance">Be</a>
+                    <a href="#" aria-label="GitHub">Gh</a>
+                </div>
+            </div>
+            <div>
+                <h3>Quick Links</h3>
+                <a href="#top">Home</a>
+                <a href="#about">About</a>
+                <a href="#services">Services</a>
+                <a href="#projects">Projects</a>
+                <a href="#blog">Blog</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div>
+                <h3>Services</h3>
+                <a href="#services">UI/UX Design</a>
+                <a href="#services">Web Design</a>
+                <a href="#services">Mobile App Design</a>
+                <a href="#services">Prototyping</a>
+                <a href="#services">Design Systems</a>
+            </div>
+            <div class="subscribe">
+                <h3>Subscribe</h3>
+                <p>Get design insights and updates straight to your inbox.</p>
+                <form>
+                    <input type="email" placeholder="Enter your email" aria-label="Email address">
+                    <button type="submit" aria-label="Subscribe">&rarr;</button>
+                </form>
+            </div>
         </div>
-      </div>
-
-      <div class="marquee-wrap">
-        <div class="marquee">
-          <span>DESIGN</span><b>✦</b><span>DEVELOP</span><b>✦</b><span>ITERATE</span><b>✦</b><span>CREATE</span><b>✦</b>
-          <span>DESIGN</span><b>✦</b><span>DEVELOP</span><b>✦</b><span>ITERATE</span><b>✦</b><span>CREATE</span><b>✦</b>
+        <div class="footer-bottom">
+            <span>&copy; 2024 Aaron Reed. All Rights Reserved.</span>
+            <div><a href="#">Privacy Policy</a><a href="#">Terms &amp; Conditions</a></div>
         </div>
-      </div>
-    </section>
+    </footer>
 
-    <section class="experience section">
-      <div class="section-head reveal">
-        <span class="section-number">04</span>
-        <span class="section-label">Experience</span>
-      </div>
-      <div class="timeline">
-        <div class="timeline-item reveal">
-          <div class="timeline-year">2023 — NOW</div>
-          <div class="timeline-main"><h3>UI Developer</h3><p>Designing and developing modern enterprise interfaces, dashboards and product experiences.</p></div>
-          <span class="timeline-mark">↗</span>
-        </div>
-        <div class="timeline-item reveal">
-          <div class="timeline-year">SELECTED</div>
-          <div class="timeline-main"><h3>Product Interfaces</h3><p>Working across service management, documentation systems, admin panels and responsive web experiences.</p></div>
-          <span class="timeline-mark">↗</span>
-        </div>
-      </div>
-    </section>
-
-    <section id="contact" class="contact section">
-      <div class="contact-glow"></div>
-      <div class="section-head reveal">
-        <span class="section-number">05</span>
-        <span class="section-label">Contact</span>
-      </div>
-      <div class="contact-inner">
-        <p class="contact-kicker reveal">Have a project in mind?</p>
-        <h2 class="contact-title reveal delay-1">Let's make<br><em>something great.</em></h2>
-        <a class="contact-email magnetic reveal delay-2" href="mailto:yourmail@example.com" data-cursor="mail">yourmail@example.com <span>↗</span></a>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div>© 2026 Shubham Tivarekar</div>
-    <div class="footer-links"><a href="#home">Back to top ↑</a><a href="#">LinkedIn</a><a href="#">GitHub</a></div>
-  </footer>
-
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
