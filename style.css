@@ -28,6 +28,7 @@
 
 html {
     scroll-behavior: smooth;
+    scrollbar-gutter: stable;
 }
 
 body {
@@ -1224,6 +1225,331 @@ textarea:focus-visible {
 }
 
 /* =========================
+   CV MODAL
+========================= */
+.cv-locked {
+    overflow: hidden;
+}
+
+.cv-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    background: rgba(7, 20, 41, 0.44);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 480ms cubic-bezier(0.22, 1, 0.36, 1), visibility 0s linear 480ms;
+}
+
+.cv-backdrop.is-open {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 480ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cv-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 100;
+    width: min(500px, calc(100vw - 36px));
+    height: 72px;
+    transform: translate(-50%, -50%) scale(0.94);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(22px) saturate(1.35);
+    -webkit-backdrop-filter: blur(22px) saturate(1.35);
+    box-shadow:
+        0 24px 60px rgba(7, 20, 41, 0.28),
+        0 4px 14px rgba(7, 20, 41, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.65);
+    opacity: 0;
+    filter: blur(10px);
+    visibility: hidden;
+    pointer-events: none;
+    will-change: transform, opacity, filter;
+    transition:
+        width 640ms cubic-bezier(0.22, 1, 0.36, 1),
+        height 640ms cubic-bezier(0.22, 1, 0.36, 1),
+        border-radius 640ms cubic-bezier(0.22, 1, 0.36, 1),
+        transform 640ms cubic-bezier(0.22, 1, 0.36, 1),
+        background-color 640ms ease,
+        box-shadow 640ms ease,
+        opacity 420ms cubic-bezier(0.22, 1, 0.36, 1),
+        filter 420ms cubic-bezier(0.22, 1, 0.36, 1),
+        visibility 0s linear 640ms;
+}
+
+.cv-modal.is-open {
+    opacity: 1;
+    filter: blur(0);
+    visibility: visible;
+    pointer-events: auto;
+    transform: translate(-50%, -50%) scale(1);
+    transition:
+        width 640ms cubic-bezier(0.22, 1, 0.36, 1),
+        height 640ms cubic-bezier(0.22, 1, 0.36, 1),
+        border-radius 640ms cubic-bezier(0.22, 1, 0.36, 1),
+        transform 640ms cubic-bezier(0.22, 1, 0.36, 1),
+        background-color 640ms ease,
+        box-shadow 640ms ease,
+        opacity 420ms cubic-bezier(0.22, 1, 0.36, 1) 30ms,
+        filter 420ms cubic-bezier(0.22, 1, 0.36, 1) 30ms,
+        visibility 0s linear 0s;
+}
+
+.cv-modal.is-expanded {
+    width: min(86vw, 1180px);
+    height: min(88vh, 860px);
+    border-radius: 24px;
+    background: #fff;
+    transform: translate(-50%, calc(-50% + 3vh)) scale(1);
+    box-shadow:
+        0 40px 90px rgba(7, 20, 41, 0.35),
+        0 6px 20px rgba(7, 20, 41, 0.1);
+}
+
+.cv-head {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-height: 72px;
+    padding: 12px 16px;
+}
+
+.cv-icon {
+    display: grid;
+    place-items: center;
+    flex: 0 0 auto;
+    width: 42px;
+    height: 46px;
+    border-radius: 10px;
+    color: #fff;
+    background: linear-gradient(135deg, #2b95f5, var(--primary-dark));
+    box-shadow: 0 8px 18px rgba(0, 87, 255, 0.28);
+}
+
+.cv-icon svg {
+    width: 21px;
+    height: 21px;
+}
+
+.cv-meta {
+    display: grid;
+    gap: 2px;
+    min-width: 0;
+}
+
+.cv-meta strong {
+    color: #0c1830;
+    font-size: 13.5px;
+    font-weight: 800;
+    letter-spacing: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.cv-meta small {
+    color: #6b7688;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.cv-head-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto;
+}
+
+.cv-review {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 38px;
+    padding: 0 18px;
+    border: 1px solid rgba(0, 87, 255, 0.16);
+    border-radius: 9px;
+    color: #fff;
+    background: linear-gradient(180deg, #2b95f5, #1a7ee6);
+    box-shadow: 0 10px 22px rgba(0, 87, 255, 0.25);
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: opacity 200ms ease, transform 240ms cubic-bezier(0.34, 1.3, 0.5, 1), background 200ms ease, box-shadow 200ms ease, visibility 0s linear 240ms;
+}
+
+.cv-review:hover {
+    background: linear-gradient(180deg, #3aa3fb, #1f89ef);
+    box-shadow: 0 12px 26px rgba(0, 87, 255, 0.32);
+    transform: translateY(-1px);
+}
+
+.cv-review:active {
+    transform: translateY(0) scale(0.97);
+}
+
+.cv-modal.is-expanded .cv-review {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(6px) scale(0.92);
+    pointer-events: none;
+}
+
+.cv-close {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    border: 1px solid rgba(15, 33, 58, 0.12);
+    border-radius: 9px;
+    color: #31405a;
+    background: rgba(255, 255, 255, 0.75);
+    cursor: pointer;
+    transition: transform 240ms cubic-bezier(0.34, 1.3, 0.5, 1), background 180ms ease, border-color 180ms ease, color 180ms ease;
+}
+
+.cv-close svg {
+    width: 15px;
+    height: 15px;
+}
+
+.cv-close:hover {
+    background: #fff;
+    border-color: rgba(0, 87, 255, 0.3);
+    color: var(--primary);
+    transform: rotate(90deg);
+}
+
+.cv-preview {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(22px);
+    pointer-events: none;
+    transition: opacity 420ms ease, transform 500ms cubic-bezier(0.22, 1, 0.36, 1), visibility 0s linear 420ms;
+}
+
+.cv-modal.is-expanded .cv-preview {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+    transition: opacity 420ms ease 180ms, transform 500ms cubic-bezier(0.22, 1, 0.36, 1) 180ms, visibility 0s linear 0s;
+}
+
+.cv-stage {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    justify-content: center;
+    padding: 16px 16px 0;
+    overflow: auto;
+    background:
+        radial-gradient(circle at 50% 0%, rgba(0, 87, 255, 0.05), transparent 55%),
+        #eef2f8;
+}
+
+.cv-frame {
+    width: 100%;
+    height: 100%;
+    max-width: 900px;
+    border: 0;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 18px 44px rgba(7, 20, 41, 0.16);
+}
+
+.cv-preview-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 18px 16px;
+}
+
+.cv-note {
+    color: #7c8799;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.cv-download {
+    min-width: 158px;
+    height: 42px;
+}
+
+@media (max-width: 860px) {
+    .cv-modal.is-expanded {
+        width: calc(100vw - 20px);
+        height: calc(100dvh - 20px);
+        border-radius: 18px;
+    }
+}
+
+@media (max-width: 600px) {
+    .cv-modal {
+        width: calc(100vw - 24px);
+        height: 66px;
+        border-radius: 15px;
+    }
+
+    .cv-head {
+        min-height: 66px;
+        gap: 10px;
+        padding: 10px 12px;
+    }
+
+    .cv-icon {
+        width: 38px;
+        height: 42px;
+    }
+
+    .cv-review {
+        height: 36px;
+        padding: 0 14px;
+    }
+
+    .cv-close {
+        width: 36px;
+        height: 36px;
+    }
+
+    .cv-modal.is-expanded {
+        width: calc(100vw - 12px);
+        height: calc(100dvh - 12px);
+        border-radius: 16px;
+    }
+
+    .cv-stage {
+        padding: 12px 12px 0;
+    }
+
+    .cv-preview-foot {
+        padding: 12px 14px 14px;
+    }
+
+    .cv-note {
+        display: none;
+    }
+}
+
+/* =========================
    FOOTER
 ========================= */
 .site-footer {
@@ -1310,6 +1636,18 @@ textarea:focus-visible {
         animation-duration: 1ms !important;
         scroll-behavior: auto !important;
         transition-duration: 1ms !important;
+    }
+
+    .cv-modal,
+    .cv-modal.is-open,
+    .cv-modal.is-expanded,
+    .cv-backdrop,
+    .cv-backdrop.is-open,
+    .cv-preview,
+    .cv-modal.is-expanded .cv-preview,
+    .cv-review,
+    .cv-close {
+        transition-delay: 0s !important;
     }
 }
 

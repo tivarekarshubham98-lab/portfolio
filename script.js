@@ -73,3 +73,108 @@ document.querySelectorAll("form").forEach((form) => {
         }, 1800);
     });
 });
+
+(() => {
+    const modal = document.getElementById("cv-modal");
+    const backdrop = document.getElementById("cv-backdrop");
+    const preview = modal.querySelector("[data-cv-preview]");
+    const trigger = document.querySelector("[data-cv-trigger]");
+    const reviewBtn = modal.querySelector("[data-cv-review]");
+    const closeBtn = modal.querySelector("[data-cv-close]");
+    const downloadBtn = modal.querySelector("[data-cv-download]");
+
+    const FOCUSABLE = "button, [href], [tabindex]:not([tabindex=\"-1\"]), iframe";
+    let lastFocused = null;
+    let expanded = false;
+
+    const lockScroll = () => {
+        document.documentElement.classList.add("cv-locked");
+        document.body.classList.add("cv-locked");
+    };
+
+    const unlockScroll = () => {
+        document.documentElement.classList.remove("cv-locked");
+        document.body.classList.remove("cv-locked");
+    };
+
+    const openStrip = () => {
+        if (modal.classList.contains("is-open")) return;
+        lastFocused = document.activeElement;
+        lockScroll();
+        modal.classList.add("is-open");
+        backdrop.classList.add("is-open");
+        const focusTarget = modal.querySelector(FOCUSABLE);
+        if (focusTarget) focusTarget.focus();
+    };
+
+    const expand = () => {
+        if (expanded) return;
+        expanded = true;
+        modal.setAttribute("aria-modal", "true");
+        modal.classList.add("is-expanded");
+        closeBtn.focus();
+    };
+
+    const collapse = () => {
+        expanded = false;
+        modal.setAttribute("aria-modal", "false");
+        modal.classList.remove("is-expanded");
+    };
+
+    const close = () => {
+        if (!modal.classList.contains("is-open")) return;
+        if (expanded) collapse();
+        modal.classList.remove("is-open");
+        backdrop.classList.remove("is-open");
+        window.setTimeout(unlockScroll, 40);
+        window.setTimeout(() => {
+            if (lastFocused && document.contains(lastFocused)) {
+                lastFocused.focus();
+            }
+            lastFocused = null;
+        }, 80);
+    };
+
+    const downloadCV = () => {
+        const anchor = document.createElement("a");
+        anchor.href = "cv.pdf";
+        anchor.download = "Shubham_Tivarekar_CV.pdf";
+        document.body.appendChild(anchor);
+        anchor.click();
+        anchor.remove();
+    };
+
+    trigger.addEventListener("click", openStrip);
+    reviewBtn.addEventListener("click", expand);
+    closeBtn.addEventListener("click", close);
+    downloadBtn.addEventListener("click", downloadCV);
+    backdrop.addEventListener("click", close);
+
+    document.addEventListener("keydown", (event) => {
+        if (!modal.classList.contains("is-open")) return;
+
+        if (event.key === "Escape") {
+            event.preventDefault();
+            close();
+            return;
+        }
+
+        if (event.key === "Tab") {
+            const focusables = [...modal.querySelectorAll(FOCUSABLE)]
+                .filter((el) => !el.disabled && el.offsetParent !== null)
+                .filter((el) => modal.classList.contains("is-expanded") || !preview.contains(el));
+            if (!focusables.length) return;
+
+            const first = focusables[0];
+            const last = focusables[focusables.length - 1];
+
+            if (event.shiftKey && document.activeElement === first) {
+                event.preventDefault();
+                last.focus();
+            } else if (!event.shiftKey && document.activeElement === last) {
+                event.preventDefault();
+                first.focus();
+            }
+        }
+    });
+})();

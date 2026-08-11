@@ -54,9 +54,9 @@
 
                 <div class="hero-actions">
                     <a class="btn primary" href="#projects">View My Work <span aria-hidden="true">&rarr;</span></a>
-                    <a class="btn secondary" href="#" download>Download Resume
+                    <button class="btn secondary" type="button" data-cv-trigger>Download Resume
                         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"></path><path d="m7 10 5 5 5-5"></path><path d="M5 21h14"></path></svg>
-                    </a>
+                    </button>
                 </div>
 
                 <div class="stats" aria-label="Portfolio statistics">
@@ -268,6 +268,38 @@
             </a>
         </div>
     </footer>
+
+    <div class="cv-backdrop" id="cv-backdrop" data-cv-backdrop aria-hidden="true"></div>
+
+    <div class="cv-modal" id="cv-modal" role="dialog" aria-modal="false" aria-labelledby="cv-title">
+        <div class="cv-head">
+            <span class="cv-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"></path><path d="M14 2v6h6"></path><path d="M9 13h6"></path><path d="M9 17h4"></path></svg>
+            </span>
+            <div class="cv-meta">
+                <strong id="cv-title">Shubham_Tivarekar_CV.pdf</strong>
+                <small>PDF &bull; 2.4 MB</small>
+            </div>
+            <div class="cv-head-actions">
+                <button class="cv-review" type="button" data-cv-review>Review CV</button>
+                <button class="cv-close" type="button" data-cv-close aria-label="Close">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12"></path><path d="m18 6-12 12"></path></svg>
+                </button>
+            </div>
+        </div>
+
+        <div class="cv-preview" data-cv-preview>
+            <div class="cv-stage">
+                <iframe class="cv-frame" src="cv.pdf" title="CV preview — Shubham Tivarekar"></iframe>
+            </div>
+            <div class="cv-preview-foot">
+                <span class="cv-note">Shubham_Tivarekar_CV.pdf &bull; PDF &bull; 2.4 MB</span>
+                <button class="btn primary cv-download" type="button" data-cv-download>Download CV
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"></path><path d="m7 10 5 5 5-5"></path><path d="M5 21h14"></path></svg>
+                </button>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
