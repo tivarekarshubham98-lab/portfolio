@@ -154,24 +154,23 @@
             </div>
         </section>
 
-        <section class="tools section-shell">
-            <p class="eyebrow">Tools &amp; Software</p>
-            <h2>Technologies I Use</h2>
-            <div class="tool-row">
-                <article><span class="figma">F</span><p>Figma</p></article>
-                <article><span class="xd">Xd</span><p>Adobe XD</p></article>
-                <!-- <article><span class="sketch">Sk</span><p>Sketch</p></article> -->
-                <article><span class="ps">Ps</span><p>Photoshop</p></article>
-                <!-- <article><span class="ai">Ai</span><p>Illustrator</p></article> -->
-                <!-- <article><span class="webflow">W</span><p>Webflow</p></article> -->
-                <article><span class="html5">5</span><p>HTML5</p></article>
-                <article><span class="css3">3</span><p>CSS3</p></article>
-                <article><span class="js">JS</span><p>JavaScript</p></article>
-                <article><span class="js">BT</span><p>Bootstrap</p></article>
+        <section class="tools section-shell" aria-labelledby="tools-title">
+            <div class="tools-panel">
+                <h2 id="tools-title">Tools &amp; Skills</h2>
+                <div class="tool-row" aria-label="Design and development tools">
+                    <article><span class="figma"><i></i></span><p>Figma</p></article>
+                    <article><span class="webflow">W</span><p>Webflow</p></article>
+                    <article><span class="xd">Xd</span><p>Adobe XD</p></article>
+                    <article><span class="ps">Ps</span><p>Photoshop</p></article>
+                    <article><span class="ai">Ai</span><p>Illustrator</p></article>
+                    <article><span class="html5">5</span><p>HTML5</p></article>
+                    <article><span class="css3">3</span><p>CSS3</p></article>
+                    <article><span class="js">JS</span><p>JavaScript</p></article>
+                </div>
             </div>
         </section>
 
-        <section class="brands section-shell">
+        <!-- <section class="brands section-shell">
             <p class="eyebrow">Trusted By Brands</p>
             <h2>Clients I've Worked With</h2>
             <div class="brand-row" aria-label="Client logos">
@@ -183,7 +182,7 @@
                 <span>UTOSIA</span>
                 <span>PULSE</span>
             </div>
-        </section>
+        </section> -->
 
    
 
@@ -216,13 +215,18 @@
         <section class="contact section-shell" id="contact">
             <div class="contact-info">
                 <p class="eyebrow">Get In Touch</p>
-                <h2>Let's Start a Project</h2>
+                <h2>Let's Create Something <span>Amazing Together</span> <b aria-hidden="true">+</b></h2>
+                <p class="contact-copy">Have a project in mind or just want to say hello? I'd love to hear from you.</p>
                 <ul>
-                    <li><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"></path><path d="m4 7 8 6 8-6"></path></svg> hello@aaronreed.design</li>
+                    <li><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"></path><path d="m4 7 8 6 8-6"></path></svg> hello@shubham.design</li>
                     <li><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07A19.5 19.5 0 0 1 3.15 7.81 2 2 0 0 1 5.14 5h3a2 2 0 0 1 2 1.72c.12.9.33 1.77.62 2.61a2 2 0 0 1-.45 2.11L9.1 12.65a16 16 0 0 0 6.25 6.25l1.21-1.21a2 2 0 0 1 2.11-.45c.84.29 1.71.5 2.61.62A2 2 0 0 1 22 16.92Z"></path></svg> +1 (555) 123-4567</li>
-                    <li><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg> New York, USA</li>
-                    <li><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg> Available for new projects</li>
+                    <li><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg> San Francisco, CA</li>
                 </ul>
+                <div class="contact-socials" aria-label="Social links">
+                    <a href="#" aria-label="LinkedIn">in</a>
+                    <a href="#" aria-label="Dribbble">Db</a>
+                    <a href="#" aria-label="Twitter">X</a>
+                </div>
             </div>
 
             <form class="contact-form" aria-label="Contact form">
@@ -235,12 +239,6 @@
                         <option>Mobile App</option>
                         <option>Design System</option>
                     </select>
-                    <select name="budget" aria-label="Budget Range">
-                        <option>Budget Range</option>
-                        <option>$2k - $5k</option>
-                        <option>$5k - $10k</option>
-                        <option>$10k+</option>
-                    </select>
                 </div>
                 <textarea name="message" placeholder="Your Message" aria-label="Your Message"></textarea>
                 <button class="btn primary" type="submit">Send Message
@@ -251,49 +249,23 @@
     </main>
 
     <footer class="site-footer" id="blog">
-        <div class="footer-shell">
-            <div class="footer-brand">
-                <a class="brand footer-logo" href="#top">
-                    <span class="brand-mark" aria-hidden="true">AR</span>
-                    <span><strong>Aaron Reed</strong><small>UI/UX &amp; Web Designer</small></span>
-                </a>
-                <p>Designing digital experiences that make an impact.</p>
-                <div class="socials" aria-label="Social links">
-                    <a href="#" aria-label="LinkedIn">in</a>
-                    <a href="#" aria-label="Dribbble">Dr</a>
-                    <a href="#" aria-label="Behance">Be</a>
-                    <a href="#" aria-label="GitHub">Gh</a>
-                </div>
-            </div>
-            <div>
-                <h3>Quick Links</h3>
+        <div class="footer-bottom">
+            <a class="brand footer-logo" href="#top">
+                <span class="brand-mark" aria-hidden="true">AR</span>
+                <span><strong>PortFolio</strong><small>UI/UX &amp; Web Designer</small></span>
+            </a>
+            <nav class="footer-nav" aria-label="Footer navigation">
                 <a href="#top">Home</a>
                 <a href="#about">About</a>
                 <a href="#services">Services</a>
                 <a href="#projects">Projects</a>
                 <a href="#blog">Blog</a>
                 <a href="#contact">Contact</a>
-            </div>
-            <div>
-                <h3>Services</h3>
-                <a href="#services">UI/UX Design</a>
-                <a href="#services">Web Design</a>
-                <a href="#services">Mobile App Design</a>
-                <a href="#services">Prototyping</a>
-                <a href="#services">Design Systems</a>
-            </div>
-            <div class="subscribe">
-                <h3>Subscribe</h3>
-                <p>Get design insights and updates straight to your inbox.</p>
-                <form>
-                    <input type="email" placeholder="Enter your email" aria-label="Email address">
-                    <button type="submit" aria-label="Subscribe">&rarr;</button>
-                </form>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <span>&copy; 2024 Aaron Reed. All Rights Reserved.</span>
-            <div><a href="#">Privacy Policy</a><a href="#">Terms &amp; Conditions</a></div>
+            </nav>
+            <span>&copy; 2024 Alex Vega. All rights reserved.</span>
+            <a class="back-top" href="#top" aria-label="Back to top">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 15 6-6 6 6"></path></svg>
+            </a>
         </div>
     </footer>
 
