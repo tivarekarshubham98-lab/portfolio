@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Shubham Tivarekar — UI Developer Portfolio">
+  <title>Shubham Tivarekar — UI Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="noise"></div>
+  <div class="cursor"></div>
+  <div class="cursor-dot"></div>
+
+  <div class="loader">
+    <div class="loader-inner">
+      <span class="loader-label">SHUBHAM.T</span>
+      <div class="loader-line"><span></span></div>
+      <span class="loader-percent">00%</span>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <a href="#home" class="logo magnetic" data-cursor="link">ST<span>.</span></a>
+    <nav class="desktop-nav">
+      <a href="#about">About</a>
+      <a href="#work">Work</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a href="#contact" class="header-cta magnetic" data-cursor="link">Let's talk <span>↗</span></a>
+    <button class="menu-toggle" aria-label="Open menu"><span></span><span></span></button>
+  </header>
+
+  <div class="mobile-menu">
+    <a href="#about">About</a>
+    <a href="#work">Work</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+  </div>
+
+  <main id="home">
+    <section class="hero section">
+      <div class="hero-orb orb-one"></div>
+      <div class="hero-orb orb-two"></div>
+      <div class="grid-lines"></div>
+
+      <div class="hero-content">
+        <div class="eyebrow reveal"><span class="status-dot"></span> Available for selected opportunities</div>
+        <h1 class="hero-title">
+          <span class="line reveal">Designing</span>
+          <span class="line reveal delay-1"><em>digital</em> experiences.</span>
+        </h1>
+        <div class="hero-bottom reveal delay-2">
+          <p class="hero-copy">I'm <strong>Shubham Tivarekar</strong>, a UI Developer crafting clean, high-performance interfaces where thoughtful design meets purposeful code.</p>
+          <a href="#work" class="circle-arrow magnetic" data-cursor="view" aria-label="View work">↘</a>
+        </div>
+      </div>
+
+      <div class="hero-meta">
+        <span>UI DEVELOPER</span>
+        <span>HTML · CSS · JS · PHP</span>
+        <span>INDIA / IST</span>
+      </div>
+
+      <div class="scroll-indicator"><span>SCROLL TO EXPLORE</span><i></i></div>
+    </section>
+
+    <section id="about" class="about section">
+      <div class="section-head reveal">
+        <span class="section-number">01</span>
+        <span class="section-label">About me</span>
+      </div>
+      <div class="about-grid">
+        <div class="about-title reveal">
+          <h2>Interfaces that<br><span>feel effortless.</span></h2>
+        </div>
+        <div class="about-copy reveal delay-1">
+          <p class="large">I turn ideas into polished, responsive products with a strong eye for visual detail and interaction.</p>
+          <p>My work sits between UI design and front-end development. I enjoy building dashboards, product experiences, landing pages and systems that are not only beautiful, but practical and easy to use.</p>
+          <div class="about-facts">
+            <div><span>Experience</span><strong>3+ Years</strong></div>
+            <div><span>Focus</span><strong>UI / Front-end</strong></div>
+            <div><span>Projects</span><strong>06+ Delivered</strong></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="work" class="work section">
+      <div class="section-head reveal">
+        <span class="section-number">02</span>
+        <span class="section-label">Selected work</span>
+      </div>
+
+      <div class="project-list">
+        <article class="project-card reveal" data-project="01">
+          <div class="project-visual visual-blue">
+            <div class="visual-ui">
+              <div class="mini-top"></div>
+              <div class="mini-grid"><i></i><i></i><i></i><i></i></div>
+              <div class="mini-chart"><b></b><b></b><b></b><b></b><b></b><b></b></div>
+            </div>
+            <span class="visual-tag">SERVICE MANAGEMENT</span>
+          </div>
+          <div class="project-info">
+            <div class="project-title-row"><h3>ePrompto</h3><span>01</span></div>
+            <p>AI-enabled service management platform with enterprise dashboards and intuitive workflows.</p>
+            <div class="tags"><span>UI Design</span><span>HTML/CSS</span><span>JavaScript</span></div>
+          </div>
+        </article>
+
+        <article class="project-card reverse reveal" data-project="02">
+          <div class="project-visual visual-purple">
+            <div class="visual-ui analytics">
+              <div class="analytics-header"><i></i><i></i><i></i></div>
+              <div class="analytics-bars"><b></b><b></b><b></b><b></b><b></b></div>
+              <div class="analytics-ring"></div>
+            </div>
+            <span class="visual-tag">IMS / ADMIN</span>
+          </div>
+          <div class="project-info">
+            <div class="project-title-row"><h3>Integrated Management System</h3><span>02</span></div>
+            <p>Structured documentation, department management, user rights and governance workflows.</p>
+            <div class="tags"><span>UX</span><span>Bootstrap</span><span>DataTables</span></div>
+          </div>
+        </article>
+
+        <article class="project-card reveal" data-project="03">
+          <div class="project-visual visual-green">
+            <div class="visual-ui portfolio-ui">
+              <div class="portfolio-photo"></div>
+              <div class="portfolio-lines"><i></i><i></i><i></i></div>
+              <div class="portfolio-button"></div>
+            </div>
+            <span class="visual-tag">PORTFOLIO</span>
+          </div>
+          <div class="project-info">
+            <div class="project-title-row"><h3>Personal Portfolio</h3><span>03</span></div>
+            <p>A cinematic, motion-led portfolio experience built to showcase creative front-end work.</p>
+            <div class="tags"><span>Creative Dev</span><span>CSS Motion</span><span>JavaScript</span></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="skills" class="skills section">
+      <div class="section-head reveal">
+        <span class="section-number">03</span>
+        <span class="section-label">Capabilities</span>
+      </div>
+      <div class="skills-layout">
+        <h2 class="reveal">Built with<br><span>curiosity.</span></h2>
+        <div class="skill-list">
+          <div class="skill reveal"><span>01</span><b>UI / UX Development</b><i>01</i></div>
+          <div class="skill reveal"><span>02</span><b>HTML / CSS / JavaScript</b><i>02</i></div>
+          <div class="skill reveal"><span>03</span><b>Responsive Web Design</b><i>03</i></div>
+          <div class="skill reveal"><span>04</span><b>Bootstrap / DataTables</b><i>04</i></div>
+          <div class="skill reveal"><span>05</span><b>PHP / Laravel</b><i>05</i></div>
+          <div class="skill reveal"><span>06</span><b>Git / GitHub</b><i>06</i></div>
+        </div>
+      </div>
+
+      <div class="marquee-wrap">
+        <div class="marquee">
+          <span>DESIGN</span><b>✦</b><span>DEVELOP</span><b>✦</b><span>ITERATE</span><b>✦</b><span>CREATE</span><b>✦</b>
+          <span>DESIGN</span><b>✦</b><span>DEVELOP</span><b>✦</b><span>ITERATE</span><b>✦</b><span>CREATE</span><b>✦</b>
+        </div>
+      </div>
+    </section>
+
+    <section class="experience section">
+      <div class="section-head reveal">
+        <span class="section-number">04</span>
+        <span class="section-label">Experience</span>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item reveal">
+          <div class="timeline-year">2023 — NOW</div>
+          <div class="timeline-main"><h3>UI Developer</h3><p>Designing and developing modern enterprise interfaces, dashboards and product experiences.</p></div>
+          <span class="timeline-mark">↗</span>
+        </div>
+        <div class="timeline-item reveal">
+          <div class="timeline-year">SELECTED</div>
+          <div class="timeline-main"><h3>Product Interfaces</h3><p>Working across service management, documentation systems, admin panels and responsive web experiences.</p></div>
+          <span class="timeline-mark">↗</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact section">
+      <div class="contact-glow"></div>
+      <div class="section-head reveal">
+        <span class="section-number">05</span>
+        <span class="section-label">Contact</span>
+      </div>
+      <div class="contact-inner">
+        <p class="contact-kicker reveal">Have a project in mind?</p>
+        <h2 class="contact-title reveal delay-1">Let's make<br><em>something great.</em></h2>
+        <a class="contact-email magnetic reveal delay-2" href="mailto:yourmail@example.com" data-cursor="mail">yourmail@example.com <span>↗</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div>© 2026 Shubham Tivarekar</div>
+    <div class="footer-links"><a href="#home">Back to top ↑</a><a href="#">LinkedIn</a><a href="#">GitHub</a></div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
