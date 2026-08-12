@@ -1088,7 +1088,7 @@ textarea:focus-visible {
 .process-step p {
     margin: 0;
     color: var(--text-secondary);
-    font-size: 12px;
+    font-size: 11px;
     line-height: 1.45;
 }
 
