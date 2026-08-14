@@ -797,6 +797,95 @@ textarea:focus-visible {
     font-weight: 800;
 }
 
+.companies {
+    padding-top: 28px;
+}
+
+.company-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    margin-top: 22px;
+}
+
+.company-card {
+    position: relative;
+    min-height: 178px;
+    padding: 24px;
+    overflow: hidden;
+    border: 1px solid #dfe8f4;
+    border-radius: var(--radius-sm);
+    background:
+        linear-gradient(135deg, rgba(26, 132, 225, 0.1), transparent 38%),
+        #fff;
+    box-shadow: var(--soft-shadow);
+    transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+}
+
+.company-card::before {
+    content: "";
+    position: absolute;
+    top: 22px;
+    right: 22px;
+    width: 44px;
+    height: 44px;
+    border: 1px solid rgba(26, 132, 225, 0.22);
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 50% 50%, var(--primary) 0 4px, transparent 5px),
+        #f4f8ff;
+}
+
+.company-card:hover {
+    border-color: rgba(26, 132, 225, 0.36);
+    box-shadow: var(--shadow);
+    transform: translateY(-5px);
+}
+
+.company-name {
+    display: inline-block;
+    width: min(100%, 430px);
+    margin: 0 0 18px;
+    padding-right: 54px;
+    color: #111d31;
+    font-size: 20px;
+    font-weight: 900;
+    line-height: 1.2;
+}
+
+.company-name:hover {
+    color: var(--primary);
+}
+
+.company-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.company-meta span {
+    display: inline-flex;
+    align-items: center;
+    min-height: 30px;
+    padding: 0 12px;
+    border: 1px solid #e2eaf5;
+    border-radius: 6px;
+    color: #536075;
+    background: #f7faff;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.company-card p {
+    margin: 0;
+    color: var(--primary);
+    font-size: 13px;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
 .services,
 .tools,
 .brands,
@@ -2147,6 +2236,7 @@ html.is-loaded :where(.hero-copy.is-visible) > *:nth-child(6) {
     }
 
     .service-row,
+    .company-grid,
     .project-grid {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -2375,10 +2465,21 @@ html.is-loaded :where(.hero-copy.is-visible) > *:nth-child(6) {
     }
 
     .project-grid,
+    .company-grid,
     .service-row,
     .process-row,
     .field-grid {
         grid-template-columns: 1fr;
+    }
+
+    .company-card {
+        min-height: 0;
+        padding: 20px;
+    }
+
+    .company-name {
+        padding-right: 48px;
+        font-size: 17px;
     }
 
     .tools-panel {
