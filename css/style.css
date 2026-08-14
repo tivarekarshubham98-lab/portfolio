@@ -329,7 +329,7 @@ h2 {
    HERO
 ========================= */
 .hero {
-       --hero-max: 1865px;
+    --hero-max: 1865px;
     --hero-gutter: clamp(20px, 7.8vw, 168px);
     --portrait-size: clamp(360px, 35vw, 535px);
     position: relative;
@@ -343,7 +343,7 @@ h2 {
     gap: clamp(28px, 4vw, 72px);
     margin: 0 auto 20px;
     border-radius: 21px;
-    background: #f5f5f5;
+    background: #f9f9f9;
     overflow: hidden;
 }
 
@@ -795,6 +795,87 @@ textarea:focus-visible {
     color: var(--primary);
     font-size: 11px;
     font-weight: 800;
+}
+
+.companies {
+    padding-top: 28px;
+}
+
+.company-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    margin-top: 22px;
+}
+
+.company-card {
+    position: relative;
+    padding: 24px;
+    overflow: hidden;
+    border-radius: var(--radius-sm);
+       background: #f3ece5;
+    transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+}
+
+.company-card::before {
+    content: "";
+    position: absolute;
+    top: 22px;
+    right: 22px;
+    width: 44px;
+    height: 44px;
+    border: 1px solid rgba(26, 132, 225, 0.22);
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 50% 50%, var(--primary) 0 4px, transparent 5px),
+        #f4f8ff;
+}
+
+.company-card:hover {
+    border-color: rgba(26, 132, 225, 0.36);
+    /* box-shadow: var(--shadow); */
+    transform: translateY(-5px);
+}
+
+.company-name {
+    display: inline-block;
+    width: min(100%, 430px);
+    margin: 0 0 18px;
+    padding-right: 54px;
+    color: #111d31;
+    font-size: 20px;
+    font-weight: 900;
+    line-height: 1.2;
+}
+
+.company-name:hover {
+    color: var(--primary);
+}
+
+.company-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.company-meta span {
+    display: inline-flex;
+    align-items: center;
+    min-height: 30px;
+    padding: 0 12px;
+    border: 1px solid #e2eaf5;
+    border-radius: 6px;
+    color: #ffffff;
+    background: #3893ff;
+    font-size: 13px;
+}
+
+.company-card p {
+    margin: 0;
+    color: #3c3c3c;
+    font-size: 13px;
+    font-weight: 600;
 }
 
 .services,
@@ -2147,6 +2228,7 @@ html.is-loaded :where(.hero-copy.is-visible) > *:nth-child(6) {
     }
 
     .service-row,
+    .company-grid,
     .project-grid {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -2375,10 +2457,21 @@ html.is-loaded :where(.hero-copy.is-visible) > *:nth-child(6) {
     }
 
     .project-grid,
+    .company-grid,
     .service-row,
     .process-row,
     .field-grid {
         grid-template-columns: 1fr;
+    }
+
+    .company-card {
+        min-height: 0;
+        padding: 20px;
+    }
+
+    .company-name {
+        padding-right: 48px;
+        font-size: 17px;
     }
 
     .tools-panel {

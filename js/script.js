@@ -257,221 +257,65 @@
         });
     });
 
-    /* ---------- CV MODAL (PDF.js Canvas) ---------- */
+    /* ---------- CV MODAL ---------- */
     (() => {
         const modal = document.getElementById("cv-modal");
         const backdrop = document.getElementById("cv-backdrop");
         const preview = modal.querySelector("[data-cv-preview]");
+        const cvContainer = modal.querySelector("[data-cv-preview-container]");
         const cvLoading = modal.querySelector(".cv-loading");
         const cvError = modal.querySelector(".cv-error");
-        const stage = modal.querySelector(".cv-stage");
         const trigger = document.querySelector("[data-cv-trigger]");
         const reviewBtn = modal.querySelector("[data-cv-review]");
         const closeBtn = modal.querySelector("[data-cv-close]");
         const downloadBtn = modal.querySelector("[data-cv-download]");
 
-        const FOCUSABLE = "button, [href], [tabindex]:not([tabindex=\"-1\"])";
+        const FOCUSABLE = "button, [href], [tabindex]:not([tabindex=\"-1\"]), iframe";
         let lastFocused = null;
         let expanded = false;
-        let isRendering = false;
-        let currentPdf = null;
-        let renderTasks = [];
-        let renderSerial = 0;
+        let cvRendered = false;
+        let cvRenderPromise = null;
 
-        const CV_PDF_URL = "images/Shubham_Tivarekar_Resume.pdf";
-        const PDFJS_WORKER_URL = "images/pdf.worker.min.js";
+        const renderCV = () => {
+            if (cvRendered || !cvContainer) return Promise.resolve();
+            if (cvRenderPromise) return cvRenderPromise;
 
-        const showLoading = () => {
-            if (cvLoading) {
-                cvLoading.classList.remove("is-hidden");
-                cvLoading.style.display = "";
-            }
-            if (cvError) {
-                cvError.classList.remove("is-visible");
-                cvError.style.display = "none";
-            }
-        };
-
-        const showError = () => {
-            if (cvLoading) {
-                cvLoading.classList.add("is-hidden");
-                cvLoading.style.display = "none";
-            }
-            if (cvError) {
-                cvError.classList.add("is-visible");
-                cvError.style.display = "";
-            }
-        };
-
-        const showPreview = () => {
-            if (cvLoading) {
-                cvLoading.classList.add("is-hidden");
-                cvLoading.style.display = "none";
-            }
-            if (cvError) {
-                cvError.classList.remove("is-visible");
-                cvError.style.display = "none";
-            }
-        };
-
-        const clearPreviousRender = () => {
-            renderSerial += 1;
-
-            renderTasks.forEach((task) => {
-                if (task && typeof task.cancel === "function") {
-                    try { task.cancel(); } catch (_) {}
-                }
-            });
-            renderTasks = [];
-
-            if (stage) {
-                stage.querySelectorAll("canvas.cv-page").forEach((canvas) => canvas.remove());
-            }
-
-            if (currentPdf) {
-                try { currentPdf.destroy(); } catch (_) {}
-                currentPdf = null;
-            }
-
-            isRendering = false;
-        };
-
-        const getStageWidth = () => {
-            if (!stage) return 0;
-            const styles = window.getComputedStyle(stage);
-            const paddingX = parseFloat(styles.paddingLeft) + parseFloat(styles.paddingRight);
-            return Math.max(0, Math.floor(stage.clientWidth - paddingX));
-        };
-
-        const base64ToUint8Array = (base64) => {
-            const binary = window.atob(base64);
-            const bytes = new Uint8Array(binary.length);
-
-            for (let i = 0; i < binary.length; i++) {
-                bytes[i] = binary.charCodeAt(i);
-            }
-
-            return bytes;
-        };
-
-        const loadPdfData = async (pdfUrl) => {
-            try {
-                const response = await fetch(pdfUrl, { cache: "no-store" });
-                if (!response.ok) {
-                    throw new Error(`PDF request failed with status ${response.status}`);
-                }
-                return new Uint8Array(await response.arrayBuffer());
-            } catch (fetchError) {
-                if (typeof window.CV_PDF_BASE64 === "string" && window.CV_PDF_BASE64) {
-                    console.warn("PDF URL fetch failed, using embedded PDF data:", fetchError);
-                    return base64ToUint8Array(window.CV_PDF_BASE64);
-                }
-
-                throw fetchError;
-            }
-        };
-
-        const renderCV = (pdfUrl = CV_PDF_URL) => {
-            if (isRendering || !stage) return Promise.resolve();
-
-            clearPreviousRender();
-            const activeRenderSerial = renderSerial;
-            isRendering = true;
-            showLoading();
-
-            return (async () => {
+            cvRenderPromise = (async () => {
                 try {
                     if (typeof window.pdfjsLib === "undefined") {
-                        throw new Error("PDF.js library not available");
+                        throw new Error("PDF viewer library unavailable");
                     }
+                    window.pdfjsLib.GlobalWorkerOptions.workerSrc =
+                        "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
 
-                    const pdfjsLib = window.pdfjsLib;
-                    pdfjsLib.GlobalWorkerOptions.workerSrc = PDFJS_WORKER_URL;
+                    const pdf = await window.pdfjsLib.getDocument("cv.pdf").promise;
+                    const maxWidth = Math.min(cvContainer.clientWidth || 900, 900);
+                    const dpr = window.devicePixelRatio || 1;
 
-                    const pdfData = await loadPdfData(pdfUrl);
-                    const getPdfDocument = async (useWorker) => {
-                        if (useWorker) {
-                            pdfjsLib.GlobalWorkerOptions.workerSrc = PDFJS_WORKER_URL;
-                        }
-
-                        const loadingTask = pdfjsLib.getDocument({
-                            data: pdfData.slice(),
-                            disableAutoFetch: true,
-                            disableStream: true,
-                            disableWorker: !useWorker
-                        });
-                        return loadingTask.promise;
-                    };
-
-                    try {
-                        currentPdf = await getPdfDocument(true);
-                    } catch (workerError) {
-                        console.warn("PDF worker failed, retrying without worker:", workerError);
-                        currentPdf = await getPdfDocument(false);
-                    }
-
-                    const availableWidth = getStageWidth();
-                    if (!availableWidth) {
-                        throw new Error("CV stage has zero width");
-                    }
-
-                    const outputScale = Math.min(window.devicePixelRatio || 1, 2);
-                    const numPages = currentPdf.numPages;
-                    const fragment = document.createDocumentFragment();
-
-                    for (let pageNum = 1; pageNum <= numPages; pageNum++) {
-                        const page = await currentPdf.getPage(pageNum);
-                        const unscaled = page.getViewport({ scale: 1 });
-
-                        const scale = availableWidth / unscaled.width;
+                    for (let i = 1; i <= pdf.numPages; i++) {
+                        const page = await pdf.getPage(i);
+                        const base = page.getViewport({ scale: 1 });
+                        const scale = Math.max((maxWidth / base.width) * dpr, 1.5);
                         const viewport = page.getViewport({ scale });
-
                         const canvas = document.createElement("canvas");
                         canvas.className = "cv-page";
+                        canvas.width = Math.floor(viewport.width);
+                        canvas.height = Math.floor(viewport.height);
                         canvas.setAttribute("aria-hidden", "true");
-
-                        canvas.width = Math.floor(viewport.width * outputScale);
-                        canvas.height = Math.floor(viewport.height * outputScale);
-                        canvas.style.width = Math.floor(viewport.width) + "px";
-                        canvas.style.height = Math.floor(viewport.height) + "px";
-                        canvas.style.display = "block";
-                        canvas.style.margin = "0 auto";
-
-                        if (pageNum < numPages) {
-                            canvas.style.marginBottom = "16px";
-                        }
-
+                        cvContainer.appendChild(canvas);
                         const context = canvas.getContext("2d");
-                        const transform = outputScale !== 1 ? [outputScale, 0, 0, outputScale, 0, 0] : null;
-
-                        const renderTask = page.render({
-                            canvasContext: context,
-                            viewport: viewport,
-                            transform: transform
-                        });
-
-                        renderTasks.push(renderTask);
-                        await renderTask.promise;
-
-                        if (activeRenderSerial !== renderSerial) return;
-                        fragment.appendChild(canvas);
+                        await page.render({ canvasContext: context, viewport }).promise;
                     }
 
-                    if (activeRenderSerial !== renderSerial) return;
-                    stage.insertBefore(fragment, cvLoading || cvError || null);
-                    stage.scrollTop = 0;
-                    showPreview();
-
+                    cvRendered = true;
+                    if (cvLoading) cvLoading.classList.add("is-hidden");
                 } catch (err) {
-                    if (activeRenderSerial !== renderSerial) return;
-                    console.error("PDF render error:", err);
-                    showError();
-                } finally {
-                    if (activeRenderSerial === renderSerial) {
-                        isRendering = false;
-                    }
+                    if (cvLoading) cvLoading.classList.add("is-hidden");
+                    if (cvError) cvError.classList.add("is-visible");
                 }
             })();
+
+            return cvRenderPromise;
         };
 
         const lockScroll = () => {
@@ -501,12 +345,7 @@
             expanded = true;
             modal.setAttribute("aria-modal", "true");
             modal.classList.add("is-expanded");
-
-            // Render PDF after expand animation
-            window.setTimeout(() => {
-                renderCV();
-            }, 600);
-
+            window.setTimeout(renderCV, 600);
             closeBtn.focus();
         };
 
@@ -518,15 +357,9 @@
 
         const close = () => {
             if (!modal.classList.contains("is-open")) return;
-
             if (expanded) collapse();
-
             modal.classList.remove("is-open");
             backdrop.classList.remove("is-open");
-
-            // Clear PDF canvases when modal closes
-            clearPreviousRender();
-
             window.setTimeout(unlockScroll, 40);
             window.setTimeout(() => {
                 if (lastFocused && document.contains(lastFocused)) {
@@ -536,20 +369,13 @@
             }, 80);
         };
 
-        const downloadCV = async (event) => {
-            if (event) event.preventDefault();
-
-            const pdfData = await loadPdfData(CV_PDF_URL);
-            const pdfBlob = new Blob([pdfData], { type: "application/pdf" });
-            const downloadUrl = URL.createObjectURL(pdfBlob);
+        const downloadCV = () => {
             const anchor = document.createElement("a");
-            anchor.href = downloadUrl;
-            anchor.download = "Shubham_Tivarekar_Resume.pdf";
-            anchor.style.display = "none";
+            anchor.href = "cv.pdf";
+            anchor.download = "Shubham_Tivarekar_CV.pdf";
             document.body.appendChild(anchor);
             anchor.click();
             anchor.remove();
-            window.setTimeout(() => URL.revokeObjectURL(downloadUrl), 1000);
 
             if (!downloadBtn.classList.contains("is-success")) {
                 downloadBtn.classList.add("is-success");
@@ -559,12 +385,11 @@
             }
         };
 
-        // Event listeners
-        if (trigger) trigger.addEventListener("click", openStrip);
-        if (reviewBtn) reviewBtn.addEventListener("click", expand);
-        if (closeBtn) closeBtn.addEventListener("click", close);
-        if (downloadBtn) downloadBtn.addEventListener("click", downloadCV);
-        if (backdrop) backdrop.addEventListener("click", close);
+        trigger.addEventListener("click", openStrip);
+        reviewBtn.addEventListener("click", expand);
+        closeBtn.addEventListener("click", close);
+        downloadBtn.addEventListener("click", downloadCV);
+        backdrop.addEventListener("click", close);
 
         document.addEventListener("keydown", (event) => {
             if (!modal.classList.contains("is-open")) return;
