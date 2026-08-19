@@ -298,6 +298,7 @@
             try {
                 const formData = new FormData(contactForm);
                 const payload = Object.fromEntries(formData.entries());
+                payload._replyto = payload.email || "";
                 const response = await fetch(contactForm.action, {
                     method: "POST",
                     body: JSON.stringify(payload),
