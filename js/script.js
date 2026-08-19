@@ -257,6 +257,79 @@
         });
     });
 
+    /* ---------- PROJECTS VIEW ALL ---------- */
+    const initProjectsViewAll = () => {
+        const grid = document.querySelector(".project-grid");
+        const link = document.querySelector('#projects .section-heading a.text-link[href="#projects"]');
+        const refresh = document.querySelector("#projects .project-refresh");
+        if (!grid || !link) return;
+
+        const extras = [...grid.querySelectorAll(".project-card.project-extra")];
+        const KEY = "portfolio-projects-view-all";
+
+        const revealExtras = () => {
+            extras.forEach((card) => {
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        card.classList.add("is-visible");
+                        window.setTimeout(() => card.classList.add("is-done"), 1600);
+                    });
+                });
+            });
+        };
+
+        const expand = () => {
+            try {
+                localStorage.setItem(KEY, "1");
+            } catch (err) { /* ignore */ }
+            grid.classList.add("is-expanded");
+            link.style.display = "none";
+            if (refresh) refresh.style.display = "inline-flex";
+            revealExtras();
+        };
+
+        const collapse = () => {
+            try {
+                localStorage.removeItem(KEY);
+            } catch (err) { /* ignore */ }
+            grid.classList.add("is-collapsing");
+            grid.style.rowGap = "0px";
+            extras.forEach((card) => {
+                card.classList.remove("is-visible", "is-done");
+                card.classList.add("is-collapsing");
+            });
+            window.setTimeout(() => {
+                grid.classList.remove("is-expanded", "is-collapsing");
+                grid.style.rowGap = "";
+                link.style.display = "";
+                if (refresh) refresh.style.display = "none";
+                extras.forEach((card) => card.classList.remove("is-collapsing"));
+            }, 850);
+        };
+
+        link.addEventListener("click", (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            expand();
+        });
+
+        if (refresh) {
+            refresh.addEventListener("click", () => {
+                collapse();
+            });
+        }
+
+        try {
+            if (localStorage.getItem(KEY) === "1") {
+                grid.classList.add("is-expanded");
+                link.style.display = "none";
+                extras.forEach((card) => card.classList.add("is-done", "is-visible"));
+                if (refresh) refresh.style.display = "inline-flex";
+                return;
+            }
+        } catch (err) { /* ignore */ }
+    };
+
     /* ---------- CV MODAL ---------- */
     (() => {
         const modal = document.getElementById("cv-modal");
@@ -282,13 +355,24 @@
 
             cvRenderPromise = (async () => {
                 try {
-                    if (typeof window.pdfjsLib === "undefined") {
-                        throw new Error("PDF viewer library unavailable");
-                    }
-                    window.pdfjsLib.GlobalWorkerOptions.workerSrc =
-                        "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+                    const loadScript = (src) =>
+                        new Promise((resolve, reject) => {
+                            const s = document.createElement("script");
+                            s.src = src;
+                            s.onload = resolve;
+                            s.onerror = () => reject(new Error(`Failed to load ${src}`));
+                            document.head.appendChild(s);
+                        });
 
-                    const pdf = await window.pdfjsLib.getDocument("cv.pdf").promise;
+                    if (typeof window.pdfjsLib === "undefined") {
+                        await loadScript("js/pdf.min.js");
+                    }
+                    window.pdfjsLib.GlobalWorkerOptions.workerSrc = "js/pdf.worker.min.js";
+
+                    const pdfData = window.CV_PDF_BASE64
+                        ? Uint8Array.from(atob(window.CV_PDF_BASE64), (c) => c.charCodeAt(0))
+                        : "cv.pdf";
+                    const pdf = await window.pdfjsLib.getDocument({ data: pdfData }).promise;
                     const maxWidth = Math.min(cvContainer.clientWidth || 900, 900);
                     const dpr = window.devicePixelRatio || 1;
 
@@ -345,7 +429,7 @@
             expanded = true;
             modal.setAttribute("aria-modal", "true");
             modal.classList.add("is-expanded");
-            window.setTimeout(renderCV, 600);
+            renderCV();
             closeBtn.focus();
         };
 
@@ -426,4 +510,5 @@
     initScrollReveal();
     initParallax();
     initActiveNavigation();
+    initProjectsViewAll();
 })();
