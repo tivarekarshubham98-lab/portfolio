@@ -299,21 +299,38 @@
                 </div>
             </div>
 
-            <form class="contact-form reveal" aria-label="Contact form">
+            <form class="contact-form reveal" action="https://formsubmit.co/ajax/tivarekarshubham98@gmail.com" method="POST" aria-label="Contact form" data-contact-form>
+                <input type="hidden" name="_subject" value="New Job Enquiry from Portfolio Website">
+                <input type="hidden" name="_template" value="table">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_autoresponse" value="Thank you for contacting Shubham Tivarekar. Your enquiry has been received and I will get back to you shortly.">
                 <div class="field-grid">
-                    <input type="text" name="name" placeholder="Your Name" aria-label="Your Name">
-                    <input type="email" name="email" placeholder="Your Email" aria-label="Your Email">
-                    <select name="project" aria-label="Project Type">
-                        <option>Project Type</option>
+                    <input type="text" name="name" placeholder="Your Name" aria-label="Your Name" required>
+                    <input type="email" name="email" placeholder="Your Email" aria-label="Your Email" required>
+                    <select name="project_type" aria-label="Project Type" required>
+                        <option value="" selected disabled>Project Type</option>
                         <option>Website Design</option>
                         <option>Mobile App</option>
                         <option>Design System</option>
                     </select>
+                    <input type="tel" name="phone" placeholder="Phone Number (optional)" aria-label="Phone Number">
+                    <input type="text" name="company" placeholder="Company/Business Name (optional)" aria-label="Company/Business Name">
+                    <select name="budget" aria-label="Budget">
+                        <option value="">Budget (optional)</option>
+                        <option>Under $1,000</option>
+                        <option>$1,000 – $5,000</option>
+                        <option>$5,000 – $10,000</option>
+                        <option>$10,000+</option>
+                    </select>
+                    <input type="text" name="location" id="location" placeholder="Location (auto-fill on key press)" aria-label="Location">
                 </div>
-                <textarea name="message" placeholder="Your Message" aria-label="Your Message"></textarea>
-                <button class="btn primary" type="submit">Send Message
+                <textarea name="message" placeholder="Your Message" aria-label="Your Message" required></textarea>
+                <button class="btn primary contact-submit" type="submit">
+                    <span class="contact-submit-label">Send Message</span>
+                    <span class="contact-submit-status" aria-live="polite">Enquiry sent</span>
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 2 11 13"></path><path d="m22 2-7 20-4-9-9-4 20-7Z"></path></svg>
                 </button>
+                <p class="contact-form-note" data-contact-note role="status" aria-live="polite"></p>
             </form>
         </section>
     </main>

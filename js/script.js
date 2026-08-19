@@ -238,24 +238,84 @@
     };
 
     /* ---------- FORMS ---------- */
-    document.querySelectorAll("form").forEach((form) => {
-        form.addEventListener("submit", (event) => {
+    const contactForm = document.querySelector("[data-contact-form]");
+
+    if (contactForm) {
+        const submitButton = contactForm.querySelector(".contact-submit");
+        const statusText = contactForm.querySelector(".contact-submit-status");
+        const note = contactForm.querySelector("[data-contact-note]");
+        let resetTimer;
+
+        const setFormState = (state, message = "") => {
+            if (!submitButton) return;
+            window.clearTimeout(resetTimer);
+            submitButton.classList.remove("is-sending", "is-sent", "is-error");
+            if (note) {
+                note.textContent = message;
+                note.classList.toggle("is-visible", Boolean(message));
+                note.classList.toggle("is-error", state === "error");
+            }
+
+            if (state === "sending") {
+                submitButton.disabled = true;
+                submitButton.classList.add("is-sending");
+                if (statusText) statusText.textContent = "Sending...";
+                return;
+            }
+
+            if (state === "sent") {
+                submitButton.disabled = true;
+                submitButton.classList.add("is-sent");
+                if (statusText) statusText.textContent = "Enquiry sent";
+                resetTimer = window.setTimeout(() => {
+                    submitButton.disabled = false;
+                    submitButton.classList.remove("is-sent");
+                    if (note) note.classList.remove("is-visible");
+                }, 3200);
+                return;
+            }
+
+            if (state === "error") {
+                submitButton.disabled = false;
+                submitButton.classList.add("is-error");
+                if (statusText) statusText.textContent = "Try again";
+                resetTimer = window.setTimeout(() => {
+                    submitButton.classList.remove("is-error");
+                    if (note) note.classList.remove("is-visible", "is-error");
+                }, 3600);
+                return;
+            }
+
+            submitButton.disabled = false;
+        };
+
+        contactForm.addEventListener("submit", async (event) => {
             event.preventDefault();
-            const button = form.querySelector("button");
-            if (!button) return;
+            if (!contactForm.reportValidity()) return;
 
-            const originalHtml = button.dataset.originalHtml || button.innerHTML;
-            button.dataset.originalHtml = originalHtml;
-            const originalText = button.textContent.trim();
-            button.disabled = true;
-            button.textContent = originalText.includes("Send") ? "Message Sent" : "Subscribed";
+            setFormState("sending");
 
-            window.setTimeout(() => {
-                button.disabled = false;
-                button.innerHTML = originalHtml;
-            }, 1800);
+            try {
+                const formData = new FormData(contactForm);
+                const payload = Object.fromEntries(formData.entries());
+                const response = await fetch(contactForm.action, {
+                    method: "POST",
+                    body: JSON.stringify(payload),
+                    headers: {
+                        "Content-Type": "application/json",
+                        Accept: "application/json"
+                    }
+                });
+
+                if (!response.ok) throw new Error("Message could not be sent.");
+
+                contactForm.reset();
+                setFormState("sent", "Thanks! Your enquiry has been sent successfully.");
+            } catch (error) {
+                setFormState("error", "Message failed to send. Please try again or email me directly.");
+            }
         });
-    });
+    }
 
     /* ---------- PROJECTS VIEW ALL ---------- */
     const initProjectsViewAll = () => {
@@ -504,6 +564,117 @@
         });
     })();
 
+    /* ---------- LOCATION AUTO-FILL (OPENSTREETMAP NOMINATIM) ---------- */
+    const initLocationAutofill = () => {
+        const locationInput = document.getElementById("location");
+        if (!locationInput) return;
+
+        let list = null;
+        let debounceTimer = null;
+        let controller = null;
+        let selectedIndex = -1;
+        let items = [];
+
+        const showList = () => {
+            if (!list) {
+                list = document.createElement("ul");
+                list.className = "location-suggest";
+                list.setAttribute("role", "listbox");
+                locationInput.insertAdjacentElement("afterend", list);
+            }
+            list.classList.add("is-open");
+        };
+
+        const hideList = () => {
+            if (list) {
+                list.classList.remove("is-open");
+                list.innerHTML = "";
+            }
+            selectedIndex = -1;
+            items = [];
+        };
+
+        const choose = (index) => {
+            const item = items[index];
+            if (!item) return;
+            locationInput.value = item.display_name;
+            hideList();
+            locationInput.focus();
+        };
+
+        const renderItems = () => {
+            if (!list) return;
+            list.innerHTML = "";
+            items.forEach((item, i) => {
+                const li = document.createElement("li");
+                li.setAttribute("role", "option");
+                li.setAttribute("aria-selected", String(i === selectedIndex));
+                li.textContent = item.display_name;
+                li.addEventListener("click", () => choose(i));
+                if (i === selectedIndex) li.classList.add("is-active");
+                list.appendChild(li);
+            });
+        };
+
+        const fetchSuggestions = async (query) => {
+            if (controller) controller.abort();
+            controller = new AbortController();
+
+            const url = `https://nominatim.openstreetmap.org/search?format=json&limit=6&q=${encodeURIComponent(query)}`;
+            try {
+                const response = await fetch(url, {
+                    headers: { "Accept-Language": "en" },
+                    signal: controller.signal,
+                });
+                if (!response.ok) throw new Error("Request failed");
+                const data = await response.json();
+                items = data.map((d) => ({
+                    display_name: d.display_name.replace(/, /g, ", "),
+                }));
+                renderItems();
+                showList();
+                if (!items.length) hideList();
+            } catch (error) {
+                if (error.name !== "AbortError") hideList();
+            }
+        };
+
+        locationInput.addEventListener("input", () => {
+            const value = locationInput.value.trim();
+            clearTimeout(debounceTimer);
+            if (value.length < 3) {
+                hideList();
+                return;
+            }
+            debounceTimer = setTimeout(() => fetchSuggestions(value), 350);
+        });
+
+        locationInput.addEventListener("keydown", (event) => {
+            if (!list || !list.classList.contains("is-open") || !items.length) return;
+
+            if (event.key === "ArrowDown") {
+                event.preventDefault();
+                selectedIndex = (selectedIndex + 1) % items.length;
+                renderItems();
+            } else if (event.key === "ArrowUp") {
+                event.preventDefault();
+                selectedIndex = (selectedIndex - 1 + items.length) % items.length;
+                renderItems();
+            } else if (event.key === "Enter") {
+                if (selectedIndex >= 0) {
+                    event.preventDefault();
+                    choose(selectedIndex);
+                }
+            } else if (event.key === "Escape") {
+                hideList();
+            }
+        });
+
+        locationInput.addEventListener("blur", () => {
+            window.setTimeout(hideList, 150);
+        });
+    };
+
     /* ---------- BOOT ---------- */
     initPageLoader();
     initSmoothScroll();
@@ -511,4 +682,5 @@
     initParallax();
     initActiveNavigation();
     initProjectsViewAll();
+    initLocationAutofill();
 })();
