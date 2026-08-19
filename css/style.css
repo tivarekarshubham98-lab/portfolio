@@ -1473,6 +1473,8 @@ html.is-animating :where(.project-grid .reveal:nth-child(8)) {
     justify-content: space-between;
     border-radius: 15px;
     align-items: center;
+        gap: 24px;
+        padding: 24px 20px;
 }
 
 /* Location autocomplete dropdown */
@@ -1672,7 +1674,7 @@ html.is-animating :where(.project-grid .reveal:nth-child(8)) {
     position: fixed;
     inset: 0;
     z-index: 1000;
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     padding: 24px;
@@ -1686,6 +1688,7 @@ html.is-animating :where(.project-grid .reveal:nth-child(8)) {
 }
 
 .contact-modal-overlay.is-active {
+    display: flex;
     opacity: 1;
     visibility: visible;
 }
@@ -2533,9 +2536,9 @@ html.is-loaded :where(.hero-copy.is-visible) > *:nth-child(6) {
 }
 
 @media (max-width: 640px) {
-    html.is-animating :where(.reveal) {
+    /* html.is-animating :where(.reveal) {
         transform: translateY(22px);
-    }
+    } */
 
     html.is-animating :where(.reveal-stagger) > * {
         transform: translateY(16px);
@@ -2640,6 +2643,14 @@ html.is-loaded :where(.hero-copy.is-visible) > *:nth-child(6) {
    RESPONSIVE
 ========================= */
 @media (max-width: 1120px) {
+
+     .contact-inner {
+    padding: 28px;
+    display: grid;
+    border-radius: 15px;
+    gap: 24px;
+    padding: 24px 20px;
+}
     .nav-shell {
         grid-template-columns: 200px 1fr 108px;
     }
@@ -3009,27 +3020,21 @@ html.is-loaded :where(.hero-copy.is-visible) > *:nth-child(6) {
         font-size: clamp(24px, 6vw, 32px);
     }
 
-    .contact-inner {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 24px;
-        padding: 24px 20px;
-    }
+   
 
-    .contact-cta {
-        width: 100%;
-    }
-
+    
     .contact-us-btn {
         width: 100%;
         justify-content: center;
     }
-}
+
 
 @media (max-width: 420px) {
     .brand strong {
         font-size: 15px;
     }
+
+   
 
     .brand small {
         font-size: 8px;
