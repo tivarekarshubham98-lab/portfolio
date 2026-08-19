@@ -171,7 +171,7 @@ h2 {
     width: min(1565px, calc(100% - 48px));
     height: 100%;
     margin: 0 auto;
-    /* padding: 0 var(--hero-gutter); */
+    padding: 0 var(--hero-gutter);
     display: grid;
     grid-template-columns: 220px 1fr 112px;
     align-items: center;
@@ -1337,17 +1337,18 @@ html.is-animating :where(.project-grid .reveal:nth-child(8)) {
     text-align: center;
 }
 
-.contact {
-       position: relative;
+/* .contact {
+    position: relative;
     display: grid;
     grid-template-columns: minmax(280px, 0.72fr) minmax(420px, 1fr);
     align-items: end;
     gap: clamp(44px, 6vw, 126px);
-    padding: clamp(42px, 4vw, 62px) var(--hero-gutter);
-    background: #f3f9ff;
-    margin-bottom: 20px;
-    border-radius: 14px;
-}
+    /* padding: clamp(42px, 4vw, 62px) var(--hero-gutter);
+    background: #f2f9ff;
+    border: 1px solid #e4ecf4; 
+    border-radius: 0;
+    margin-bottom: 20px; 
+}/
 
 /* .contact::after {
     content: "";
@@ -1370,6 +1371,7 @@ html.is-animating :where(.project-grid .reveal:nth-child(8)) {
     font-size: clamp(30px, 3vw, 42px);
     font-weight: 900;
     line-height: 1.04;
+    white-space: nowrap;
 }
 
 .contact-info h2 span,
@@ -1383,7 +1385,7 @@ html.is-animating :where(.project-grid .reveal:nth-child(8)) {
 
 .contact-copy {
     max-width: 360px;
-    margin-bottom: 23px;
+    margin-bottom: 0;
     color: #536075;
     font-size: 12px;
     line-height: 1.55;
@@ -1453,10 +1455,64 @@ html.is-animating :where(.project-grid .reveal:nth-child(8)) {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 14px;
+    width: 100%;
+    position: relative;
 }
 
-.field-grid select {
+.field-grid select,
+.field-grid [name="Location"] {
     grid-column: 1 / -1;
+}
+
+/* Contact inner wrapper */
+.contact-inner {
+    background: #f2f9ff;
+    padding: 28px;
+    display: flex;
+    border: 1px solid #e4ecf4;
+    justify-content: space-between;
+    border-radius: 15px;
+    align-items: center;
+}
+
+/* Location autocomplete dropdown */
+.location-suggest {
+    position: absolute;
+    z-index: 100;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    margin: 4px 0 0;
+    padding: 0;
+    list-style: none;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    box-shadow: 0 8px 24px rgba(10, 20, 40, 0.12);
+}
+
+.location-suggest:not(.is-open) {
+    display: none;
+}
+
+.location-suggest li {
+    padding: 10px 14px;
+    font-size: 12px;
+    color: #354155;
+    cursor: pointer;
+    border-bottom: 1px solid #f1f4f8;
+    transition: background 150ms ease;
+}
+
+.location-suggest li:last-child {
+    border-bottom: none;
+}
+
+.location-suggest li:hover,
+.location-suggest li.is-active {
+    background: #f0f6ff;
+    color: var(--primary);
 }
 
 .contact-form input,
@@ -1580,6 +1636,138 @@ html.is-animating :where(.project-grid .reveal:nth-child(8)) {
     50% {
         transform: translate(5px, -4px) rotate(-8deg);
         opacity: 0.76;
+    }
+}
+
+/* =========================
+   CONTACT CTA BUTTON
+========================= */
+/* .contact-cta {
+    align-self: start;
+    display: flex;
+    align-items: center;
+} */
+
+.contact-us-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.contact-us-btn svg {
+    width: 18px;
+    height: 18px;
+    transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.contact-us-btn:hover svg {
+    transform: translateX(4px);
+}
+
+/* =========================
+   CONTACT MODAL
+========================= */
+.contact-modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: rgba(10, 20, 40, 0.55);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 350ms cubic-bezier(0.22, 1, 0.36, 1),
+                visibility 350ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.contact-modal-overlay.is-active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.contact-modal {
+    position: relative;
+    width: 100%;
+    max-width: 620px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: #fff;
+    border-radius: 12px;
+    padding: 36px 34px 30px;
+    box-shadow: 0 30px 80px rgba(10, 20, 40, 0.25);
+    transform: translateY(30px) scale(0.95);
+    opacity: 0;
+    transition: transform 400ms cubic-bezier(0.22, 1, 0.36, 1),
+                opacity 350ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.contact-modal-overlay.is-active .contact-modal {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+}
+
+.modal-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border: none;
+    border-radius: 50%;
+    background: #f1f4f8;
+    cursor: pointer;
+    transition: background 200ms ease, transform 200ms ease;
+}
+
+.modal-close:hover {
+    background: #e2e7ed;
+    transform: rotate(90deg);
+}
+
+.modal-close svg {
+    width: 16px;
+    height: 16px;
+    color: #354155;
+}
+
+.contact-modal h3 {
+    font-size: clamp(22px, 2.5vw, 28px);
+    font-weight: 800;
+    margin-bottom: 6px;
+    color: var(--text-primary);
+}
+
+.modal-subtitle {
+    font-size: 12px;
+    color: #536075;
+    margin-bottom: 22px;
+    line-height: 1.5;
+}
+
+.contact-modal .contact-form {
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    max-width: none;
+}
+
+@media (max-width: 600px) {
+    .contact-modal-overlay {
+        padding: 14px;
+        align-items: flex-end;
+    }
+
+    .contact-modal {
+        border-radius: 12px 12px 0 0;
+        padding: 28px 18px 24px;
+        max-height: 85vh;
     }
 }
 
@@ -2778,12 +2966,21 @@ html.is-loaded :where(.hero-copy.is-visible) > *:nth-child(6) {
         justify-self: stretch;
     }
 
+    .contact-cta {
+        justify-self: stretch;
+    }
+
+    .contact-us-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
     .contact-info ul {
         grid-template-columns: 1fr;
     }
 
     .contact-info li {
-        white-space: normal;
+        white-space: nowrap;
     }
 
     .contact-info li:nth-child(3) {
@@ -2805,6 +3002,27 @@ html.is-loaded :where(.hero-copy.is-visible) > *:nth-child(6) {
 
     .footer-nav a {
         font-size: 10px;
+    }
+
+    .contact-info h2 {
+        white-space: normal;
+        font-size: clamp(24px, 6vw, 32px);
+    }
+
+    .contact-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 24px;
+        padding: 24px 20px;
+    }
+
+    .contact-cta {
+        width: 100%;
+    }
+
+    .contact-us-btn {
+        width: 100%;
+        justify-content: center;
     }
 }
 

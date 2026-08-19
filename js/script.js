@@ -680,6 +680,35 @@
         });
     };
 
+    /* ---------- CONTACT MODAL ---------- */
+    const initContactModal = () => {
+        const overlay = document.querySelector("[data-contact-modal]");
+        const openBtn = document.querySelector("[data-contact-open]");
+        const closeBtn = document.querySelector("[data-contact-close]");
+        if (!overlay || !openBtn) return;
+
+        const open = () => {
+            overlay.classList.add("is-active");
+            document.body.style.overflow = "hidden";
+        };
+
+        const close = () => {
+            overlay.classList.remove("is-active");
+            document.body.style.overflow = "";
+        };
+
+        openBtn.addEventListener("click", open);
+        if (closeBtn) closeBtn.addEventListener("click", close);
+
+        overlay.addEventListener("click", (e) => {
+            if (e.target === overlay) close();
+        });
+
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape" && overlay.classList.contains("is-active")) close();
+        });
+    };
+
     /* ---------- BOOT ---------- */
     initPageLoader();
     initSmoothScroll();
@@ -688,4 +717,5 @@
     initActiveNavigation();
     initProjectsViewAll();
     initLocationAutofill();
+    initContactModal();
 })();
