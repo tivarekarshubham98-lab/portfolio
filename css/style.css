@@ -158,6 +158,17 @@ h2 {
 /* =========================
    HEADER
 ========================= */
+
+@font-face {
+    font-family: 'Ballerick Script';
+    src: url('fonts/Ballerick Script.woff2') format('woff2'),
+         url('fonts/Ballerick Script.woff') format('woff'),
+         url('fonts/Ballerick Script.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap; /* Prevents text from being invisible during load */
+}
+
 .site-header {
     position: sticky;
     top: 0;
@@ -2319,61 +2330,35 @@ html.is-animating :where(.project-grid .reveal:nth-child(8)) {
     transform: translateY(0);
 }
 
-.preloader-mark {
-    position: relative;
-    display: inline-grid;
-    place-items: center;
-    width: 52px;
-    height: 42px;
-    animation: preloaderMarkPulse 1.1s ease-in-out infinite;
+.preloader-text {
+    font-family: 'Great Vibes', 'Ballerick Script', 'Lucida Handwriting', cursive;
+    font-size: clamp(28px, 5vw, 42px);
+    color: var(--text-primary);
+    text-align: center;
+    white-space: nowrap;
+    background: linear-gradient(90deg, transparent 0%, var(--text-primary) 100%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: preloaderBlurReveal 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    filter: blur(8px);
 }
 
-.preloader-mark::before,
-.preloader-mark::after {
-    content: "";
-    position: absolute;
-    bottom: 4px;
-    background: var(--primary);
-}
-
-.preloader-mark::before {
-    left: 0;
-    width: 17px;
-    height: 29px;
-    border-radius: 11px 11px 3px 3px;
-    transform: skewX(-24deg);
-}
-
-.preloader-mark::after {
-    right: 3px;
-    width: 27px;
-    height: 34px;
-    border: 8px solid var(--primary);
-    border-bottom: 0;
-    border-radius: 15px 15px 0 0;
-    background: transparent;
-    transform: skewX(-13deg);
-}
-
-.preloader-bar {
-    width: 152px;
-    height: 2px;
-    overflow: hidden;
-    border-radius: 999px;
-    background: var(--border);
-}
-
-.preloader-bar i {
-    display: block;
-    width: 0;
-    height: 100%;
-    border-radius: 999px;
-    background: var(--primary);
-}
-
-.preloader.is-active .preloader-bar i {
-    width: 100%;
-    transition: width 850ms cubic-bezier(0.22, 1, 0.36, 1);
+@keyframes preloaderBlurReveal {
+    0% {
+        background-position: 0% 50%;
+        filter: blur(8px);
+        opacity: 0;
+    }
+    30% {
+        opacity: 1;
+    }
+    100% {
+        background-position: 100% 50%;
+        filter: blur(0);
+        opacity: 1;
+    }
 }
 
 .preloader.is-hidden {
@@ -2385,17 +2370,6 @@ html.is-animating :where(.project-grid .reveal:nth-child(8)) {
         opacity 560ms ease,
         transform 560ms cubic-bezier(0.22, 1, 0.36, 1),
         visibility 0s linear 560ms;
-}
-
-@keyframes preloaderMarkPulse {
-    0%, 100% {
-        transform: translateY(0);
-        opacity: 1;
-    }
-    50% {
-        transform: translateY(-4px);
-        opacity: 0.72;
-    }
 }
 
 /* =========================
@@ -2653,6 +2627,7 @@ html.is-loaded :where(.hero-copy.is-visible) > *:nth-child(6) {
 }
     .nav-shell {
         grid-template-columns: 200px 1fr 108px;
+        padding: 0;
     }
 
     .nav-links {
@@ -2689,6 +2664,7 @@ html.is-loaded :where(.hero-copy.is-visible) > *:nth-child(6) {
     .tools-panel {
         grid-template-columns: 1fr;
         gap: 18px;
+        border-radius: 12px;
     }
 
     .tool-row {
@@ -2877,7 +2853,8 @@ html.is-loaded :where(.hero-copy.is-visible) > *:nth-child(6) {
 
     .section-shell {
         width: min(100% - 24px, var(--hero-max));
-        padding: 24px 18px 32px;
+        padding: 0;
+         margin: 38px auto 18px;
     }
 
     .hero h1 {
