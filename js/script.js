@@ -298,7 +298,11 @@
             try {
                 const formData = new FormData(contactForm);
                 const payload = Object.fromEntries(formData.entries());
-                payload._replyto = payload.email || "";
+                const visitorEmail = payload.email || "";
+                const senderName = payload.company || payload.name || "Portfolio Visitor";
+                payload._replyto = visitorEmail;
+                payload._subject = `New Job Enquiry - ${senderName}`;
+                delete payload.email;
                 const response = await fetch(contactForm.action, {
                     method: "POST",
                     body: JSON.stringify(payload),
