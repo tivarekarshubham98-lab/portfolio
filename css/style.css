@@ -347,11 +347,9 @@ h2 {
     position: relative;
     isolation: isolate;
     width: min(var(--hero-max), calc(100% - 40px));
-    min-height: clamp(470px, 36vw, 540px);
-    padding: clamp(42px, 4vw, 62px) var(--hero-gutter);
     display: grid;
-    grid-template-columns: minmax(0, 0.88fr) minmax(360px, 1.12fr);
-    align-items: center;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: end;
     gap: clamp(28px, 4vw, 72px);
     margin: 0 auto 20px;
     border-radius: 21px;
@@ -379,7 +377,7 @@ h2 {
     position: relative;
     z-index: 2;
     max-width: 560px;
-    padding-top: clamp(0px, 2.1vw, 38px);
+    padding: clamp(42px, 4vw, 62px) var(--hero-gutter);
 }
 
 .hero h1 {
@@ -412,12 +410,18 @@ h2 {
     line-height: 1.6;
 }
 
+.hero-bottom {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 20px;
+    align-items: end;
+}
+
 .hero-actions {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: 16px;
-    margin-bottom: 31px;
 }
 
 .btn {
@@ -516,6 +520,17 @@ textarea:focus-visible {
     z-index: 1;
     min-width: 0;
     height: clamp(350px, 31vw, 435px);
+}
+
+.portrait-img {
+    /* position: absolute; */
+    right: 0;
+    bottom: 0;
+    width: var(--portrait-size);
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    border-radius: 12px;
 }
 
 .portrait {
