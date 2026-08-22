@@ -530,7 +530,7 @@ textarea:focus-visible {
     top: 136px;
     width: clamp(250px, 51vw, 620px);
     height: clamp(250px, 44vw, 392px);
-    background: #facc15;
+        background: #1a83df;
     border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
     z-index: 0;
 }
